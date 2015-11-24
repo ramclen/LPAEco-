@@ -12,42 +12,102 @@
 <body>
 
 
-<div id="map"></div>
+<div id="settingsRoute">
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+        <img src="LOGO%20LPAeco.png" style="margin-bottom: 10vh;margin-top: 6vh;height: 172px; margin-left: 36vw;"/>
+    </div>
 
+    <div class="col-md-offset-4 col-xs-8 col-sm-8 col-md-8 col-lg-8">
 
-<div id="routeSearch" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Seleccione su ruta</h4>
-            </div>
-            <div class="modal-body">
-                <b>Origen: </b>
-                <input id="startAutocomplete" placeholder="Enter your address" type="text"></input>
-                <b>Destino: </b>
-                <input id="endAutocomplete" placeholder="Enter your address" type="text"></input>
-                <br/>
-                <b>Hora de salida: </b>
-                <select id="hour">
-                    <option value="0">00:00:00</option>
-                    <option value="1">03:00:00</option>
-                    <option value="2">05:00:00</option>
-                    <option value="3">08:00:00</option>
-                    <option value="4">13:03:00</option>
-                    <option value="5">18:00:00</option>
-                    <option value="6">19:00:00</option>
-                    <option value="7">20:30:00</option>
-                </select>
-                <button id="preCalculateRoute" type="button" class="btn btn-default">Aprox</button>
-                <p id="message"></p>
-            </div>
-            <div class="modal-footer">
-                <button id="setRoute" type="button" class="btn btn-primary">Crear la ruta</button>
-            </div>
+        <img class="icon"  src="icons/icon_UBICACION.png" />
+        <input id="startAutocomplete" type="text" style="margin-left:10px;width: 300px; font-size: 21px;display: inline!important;" class="form-control" placeholder="Ubicación actual">
+
+        <br/><br/><img class="icon" src="icons/icon_DESTINO.png" />
+        <input id="endAutocomplete" class="form-control" type="text" style="font-size: 21px; width: 300px; display: inline!important;" placeholder="Destino" type="text"></input>
+        <br/><br/>
+        <br/><img class="icon" src="icons/icon_HORA.png" />
+        <select id="hour" style="font-size: 21px;">
+            <option value="0">00:00:00</option>
+            <option value="1">03:00:00</option>
+            <option value="2">05:00:00</option>
+            <option value="3">08:00:00</option>
+            <option value="4">13:03:00</option>
+            <option value="5">18:00:00</option>
+            <option value="6">19:00:00</option>
+            <option value="7">20:30:00</option>
+        </select>
+        <br/><br/><br/><br/>
+        <div class=" col-md-offset-1 col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <p><a id="preCalculateRoute" class="btn btn-primary btn-lg" href="#" role="button">Ver estadísticas</a></p>
         </div>
     </div>
 </div>
+
+<div id="showingPreRates" style="display: none">
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+        <img src="LOGO%20LPAeco.png" style="margin-bottom: 10vh;margin-top: 6vh;height: 172px; margin-left: 36vw;"/>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="col-md-offset-4 col-xs-3 col-sm-3 col-md-3 col-lg-3">
+
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <img class="icon" src="icons/info/icon_TIEMPO.png" alt=""/>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <p id="messageTime"></p>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <img class="icon" src="icons/info/icon_ECO.png" alt=""/>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <p id="messageEco"></p>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <img class="icon" src="icons/info/icon_PARK.png" alt=""/>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <p id="messagePark"></p>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <img class="icon" src="icons/info/icon_DIST.png" alt=""/>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <p id="messageDist"></p>
+                </div>
+            </div>
+            <br/>
+
+
+            <p id="messageAlert"></p>
+
+            <br/><br/>
+            <div class=" col-md-offset-1 col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <p><a id="setRoute" class="btn btn-primary btn-lg" href="#" role="button">Crear la ruta</a></p>
+            </div>
+            <!--<button id="setRoute" type="button" class="btn btn-default">Crear la ruta</button>-->
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="map" style="display:none"></div>
 
 <script data-main="src/configuration.js"  src="lib/require-2.1.16.js"></script>
 </body>

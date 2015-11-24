@@ -12,6 +12,7 @@ function Main() {
     this.main = function () {
         $('#routeSearch').modal('toggle');
         $('#setRoute').on('click', function () {
+            $('#showingPreRates').css("display", "none");
             $('#endAutocomplete').trigger('change');
             $('#routeSearch').modal('toggle');
         });
@@ -19,11 +20,13 @@ function Main() {
         var map = new Map(document.getElementById('map'));
         directionEvent(map);
         $("#preCalculateRoute").on('click', function () {
-            $('#endAutocomplete').trigger('change');
-            $("#message").append(map.callback())
+            $("#settingsRoute").css("display", "none");
+            $("#showingPreRates").css("display", '');
+            map.calculateParameters();
+            $("#message").append(map.callback());
         });
+
         new Autocomplete().initAutocomplete();
 
-        map.create();
     }
 }

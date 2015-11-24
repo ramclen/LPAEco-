@@ -62,3 +62,8 @@ html, body {
 .pac-container{
     z-index: 9999;
 }
+
+.icon{
+    margin-right: 35px;
+    height: 55px;
+}

@@ -9,6 +9,8 @@ function Map(mapElement){
         coPerKM= 140,
     directionsService = new google.maps.DirectionsService,
     directionsDisplay = new google.maps.DirectionsRenderer;
+    var estimatedMinutesToPark = ["17 - 24", "3 - 4", "3 - 4", "19 - 27", "30 - 42", "6 - 8", "4 - 6", "37 - 53"];
+
 
     this.create = function () {
         var map = new google.maps.Map(mapElement, mapConfiguration);
@@ -17,9 +19,20 @@ function Map(mapElement){
     };
 
     this.onChangeHandler = function() {
+        $("#settingsRoute").css("display", "none");
+        $("#map").css("display", '');
+
         var route = selectedRoute();
         that.setRoute(route);
+
+
+
+        that.create();
+    };
+
+    this.calculateParameters = function () {
         var service = new google.maps.DistanceMatrixService();
+        var route = selectedRoute();
         service.getDistanceMatrix(
             {
                 origins: [route.origin],
@@ -28,16 +41,22 @@ function Map(mapElement){
             }, that.callback);
     };
 
+    function printInfo(results, estimatedToPark, co2) {
+        $("#messageDist").append(results.rows[0].elements[0].distance.text);
+        $("#messagePark").append(estimatedToPark + " minutos");
+        $("#messageEco").append(co2 + " g")
+        $("#messageTime").append(results.rows[0].elements[0].duration.text);
+        if (estimatedToPark > 15)
+            $("#messageAlert").append("<br/><font color='red'> Se recomendaría el uso de transporte público</font>");
+    }
+
     this.callback = function (results, status){
         $("#message").empty();
-        var co2 = parseInt(results.rows[0].elements[0].distance.text.replace("km","")) * coPerKM;
-        $("#message").append("Distancia: <b>" +
-                    results.rows[0].elements[0].distance.text +
-                    "</b> Duración: <b>" +
-                    results.rows[0].elements[0].duration.text+
-                    "</b> CO2 generado: <b>" +
-                    co2 + " g </b>");
-
+        if(results) {
+            var co2 = parseInt(results.rows[0].elements[0].distance.text.replace("km", "")) * coPerKM;
+            var estimatedToPark = estimatedMinutesToPark[parseInt($("#hour").val())];
+            printInfo(results, estimatedToPark, co2);
+        }
     };
 
     this.setRoute = function (route) {
@@ -59,5 +78,7 @@ function Map(mapElement){
             //window.alert('Directions request failed due to ' + status);
         }
     }
+
+
 
 }
